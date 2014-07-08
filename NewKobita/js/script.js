@@ -9,8 +9,8 @@ document.body.appendChild(divGlobal);
 
 
 function mp3() {
-    var i;
-    var the_object;
+	    // var i;
+	    //var the_object;
     var http_request = new XMLHttpRequest();
     divGlobal.innerHTML = "Loading ...";
     var txt = document.getElementById("Fsearch").value;
@@ -180,14 +180,12 @@ function mp3() {
 			$("#jquery_jplayer_" + i).jPlayer({
 			    ready: function() {
 				$(this).jPlayer("setMedia", {
-				    mp3: "http://vpleer.ru" + the_object[i].url
-				});
-			    },
+				    mp3: "http://vpleer.ru"+ encode(the_object[2].url)
+				});			    },
 			    play: function() { // To avoid multiple jPlayers playing together.
 				$(this).jPlayer("pauseOthers");
 			    },
-			    swfPath: "../NewKobita/js",
-			    supplied: "mp3",
+			    swfPath: "/NewKobita/js",
 			    cssSelectorAncestor: "#jp_container_" + i,
 			    wmode: "window",
 			    globalVolume: true,
@@ -195,7 +193,7 @@ function mp3() {
 			    keyEnabled: true,
 			    solution:"flash"
 			});
-			
+				
 		    }
 		}
 	    } else {
@@ -208,7 +206,7 @@ function mp3() {
 }
 ;
 function encode(unencoded) {
-    unencoded = unencoded.replace(/&amp;/g, '&');
-    return  encodeURIComponent(unencoded).replace(/'/g, "%27").replace(/"/g, "%22");
+    //unencoded = unencoded.replace(/&amp;/g, '&');
+    return  unencoded.replace(/&amp;/g, '&');
 
 }
