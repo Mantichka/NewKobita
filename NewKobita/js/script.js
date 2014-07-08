@@ -180,7 +180,7 @@ function mp3() {
 			$("#jquery_jplayer_" + i).jPlayer({
 			    ready: function() {
 				$(this).jPlayer("setMedia", {
-				    mp3: "http://vpleer.ru"+ encode(the_object[2].url)
+				    mp3: arguments[0].jPlayer.options.mp3
 				});			    },
 			    play: function() { // To avoid multiple jPlayers playing together.
 				$(this).jPlayer("pauseOthers");
@@ -191,7 +191,7 @@ function mp3() {
 			    globalVolume: true,
 			    smoothPlayBar: true,
 			    keyEnabled: true,
-			    solution:"flash"
+			    mp3: "http://vpleer.ru"+ encode(the_object[i].url)
 			});
 				
 		    }
