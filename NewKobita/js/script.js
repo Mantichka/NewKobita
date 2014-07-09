@@ -178,12 +178,16 @@ function mp3() {
 			div14.appendChild(div2);
 			
 			$("#jquery_jplayer_" + i).jPlayer({
-			    ready: function() {
+			    ready: function(e) {
 				$(this).jPlayer("setMedia", {
-				    mp3: arguments[0].jPlayer.options.mp3
-				});			    },
+				    mp3: e.jPlayer.options.mp3
+				});			    
+			    },
 			    play: function() { // To avoid multiple jPlayers playing together.
 				$(this).jPlayer("pauseOthers");
+			    },
+			    ended: function(e) { 
+				$("#jquery_jplayer_" + ((e.jPlayer.options.index + 1) % the_object.length)).jPlayer("play");
 			    },
 			    swfPath: "/NewKobita/js",
 			    cssSelectorAncestor: "#jp_container_" + i,
@@ -191,7 +195,8 @@ function mp3() {
 			    globalVolume: true,
 			    smoothPlayBar: true,
 			    keyEnabled: true,
-			    mp3: "http://vpleer.ru"+ encode(the_object[i].url)
+			    mp3: "http://vpleer.ru"+ encode(the_object[i].url),
+			    index: i
 			});
 				
 		    }
