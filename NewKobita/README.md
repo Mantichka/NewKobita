@@ -1,4 +1,0 @@
-NewKobita
-=========
-
-Kobita's player
