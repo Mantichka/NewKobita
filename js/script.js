@@ -10,7 +10,7 @@ function mp3() {
     
     i = 0;
     var http_request = new XMLHttpRequest();
-    divGlobal.innerHTML = "<center><img src=\"http://www.defencejobs.gov.au/global/images/refresh/page-tools/loader.gif\"><br>Loading ...</center>";
+    divGlobal.innerHTML = "<center><img  src=\"/css/loader.gif\"><br>Loading ...</center>";
     var txt = document.getElementById("Fsearch").value;
     http_request.open('GET', '/search.php?search=' + txt, true);
     http_request.send(null);
@@ -74,6 +74,13 @@ function mp3() {
 			itemInfo.setAttribute("class", "item");
 			itemInfo .appendChild( document.createTextNode(the_object[i].artist + " ~ " + the_object[i].name));
 			item.appendChild(itemInfo);
+			
+			var button_download = document.createElement('div');
+			button_download.setAttribute("class", "jp-download");
+			button_download.setAttribute("id", "button-download_" + i);
+			button_download.setAttribute("onclick", "pause(this.id.substr(13));");
+			button_download.setAttribute("style", "display:none;");
+			item.appendChild(button_download);
 			divGlobal.appendChild(item);
 			divGlobal.appendChild(document.createElement('br'));
 		    }
@@ -106,5 +113,5 @@ function encode(unencoded) {
     return unencoded.replace(/&amp;/g, '&');
 }
 $('#download_link').click(function() {
-    $(this).attr("href", $("#jquery_jplayer").jPlayer("getOption", "mp3"));
+    $(this).attr("href", $("#jquery_jplayer").jPlayer("getOption", "mp3[i]"));
 });

@@ -4,12 +4,14 @@
     font-weight: normal;
     src: url("/css/ddg-serp-icons.eot") format("embedded-opentype"),  url("/css/ddg-serp-icons.woff") format("woff"), url("/css/ddg-serp-icons.ttf") format("truetype");
 }
+
 * {
     margin: 0px;
     padding: 0px;
-    background-color: #003c00;
-    color: #00ff00;
+    background-color: #ffef66;
+    color: #ffef66;
     border-color: rgba(0,255,0,1);
+    background-image: linear-gradient(#057016, #00560b);
     border-width: 1px;
 }
 .search {
@@ -27,6 +29,7 @@
     display: block;
     position: relative;
     margin-right: 40px;
+    font-size: 18px;
 }
 
 #search_form {
@@ -52,6 +55,7 @@
     height: 30px;
     font-size: 15px;
     font-family: 'ddg-serp-icons';
+    cursor: pointer;
 }
 
 
@@ -61,11 +65,20 @@ html body {
 
 .button-play:before, .jp-play:before{
     content:"▸";
+    font-weight: 900;
+    line-height: 30%;
+}
+.button-play, .jp-play{
+    font-size: 30px;
+    top: 0px;
+    bottom:0px;
+    margin-top: 0.5px;
+    padding: 0px;
 }
 .button-play, .jp-play,.button-pause, .jp-pause {
-    width:16px;
-    height:16px;
-    background-color:#ff0000;
+    width:18px;
+    height:18px;
+    background-color:#631500;
     text-align:center;
     text-decoration:none;
     cursor: pointer;
@@ -74,7 +87,7 @@ html body {
     content:"II";
     font-family: arial black,verdana,geneva,lucida,'lucida grande',arial,helvetica,sans-serif;
     font-weight: 900;
-    line-height: 110%;
+    line-height: 100%;
     letter-spacing:-1px;
 }
 .div-item {
@@ -227,25 +240,45 @@ li,.item, .button-pause, .button-play {
     width:50px;
     min-width: 20px;
     height:6px;
+    border: 1px solid #ffff00;
+        cursor: pointer;
 }
 .jp-volume-bar {
    background-color:#ffff00;
 
 }
-.jp-progress,.jp-seek-bar,.jp-play-bar{
-    width:300px;
-    min-width: 20px;
-    height:6px;
-    border-right:1px solid;
-}
-.jp-seek-bar {
-   background-color:#ff0000;
+.jp-volume-bar-value{
+    border-bottom: 6px solid blue;
+    border-bottom: 6px solid blue;
 }
 .jp-progress{
-    background-color:#ff8000;
+    width:500px;
+    min-width: 20px;
+    height:6px;
+    border: 1px solid #00ff00;
+        cursor: pointer;
+
+}
+.jp-seek-bar{
+    width: 0px;
+    height:0px;
+    border-top: 6px ridge #fbffd9;
+    border-bottom: 6px ridge #fbffd9;
+}
+.jp-play-bar{
+    min-width: 0px;
+    height:0px;
+    border-bottom: 6px solid #631500;
+    border-bottom: 6px solid #631500;
+}
+.jp-seek-bar {
+   background-color:#631500;
+}
+.jp-progress{
+    background-color:#631500;
 }
 .jp-play-bar {
-   background-color:#ff0080;
+   background-color:#631500;
 }
 
 .jp-volume-container {
@@ -256,11 +289,20 @@ li,.item, .button-pause, .button-play {
     text-align: left;
 padding-top: 15px;
 width: 800px;
+    
 }
 .jp-interface {
 position: relative;
+    
 }
 #container {
     text-align: center;
     padding: 5px;
+}
+.image{
+    top: 10px;
+    position: absolute;
+}
+.jp-current-time, .jp-duration, .jp-volume-percent, .jp-controls, #content_main{
+    cursor: default;
 }
