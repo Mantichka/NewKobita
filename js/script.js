@@ -10,7 +10,7 @@ function mp3() {
     
     i = 0;
     var http_request = new XMLHttpRequest();
-    divGlobal.innerHTML = "<center><img  src=\"/css/loader.gif\"><br>Loading ...</center>";
+    divGlobal.innerHTML = "<center><img  src=\"/loader.gif\"><br>Loading ...</center>";
     var txt = document.getElementById("Fsearch").value;
     http_request.open('GET', '/search.php?search=' + txt, true);
     http_request.send(null);
@@ -19,7 +19,7 @@ function mp3() {
 	    console.log(http_request.status);
 	    if (http_request.status === 200) {
 		var str = http_request.responseText;
-		str = str.substr(0, str.indexOf("<!-- www.1freehosting."));
+		str = str.substr(0, str.lastIndexOf("}]") + 2);
 		the_object = JSON.parse(str.replace(/\t/g, '&nbsp;'));
 		divGlobal.innerHTML = "";
 		if (the_object.length === 0) {
@@ -58,31 +58,53 @@ function mp3() {
 		    for (i = 0; i < the_object.length; i++) {
 			var item = document.createElement('div');
 			item.setAttribute("class", "div-item item");
-			var button = document.createElement('div');
+			item.setAttribute("id", "div-item-" + i);
+			var button = document.createElement('a');
+			button.setAttribute("href", "javascript:;");
+			button.setAttribute("title", "Play");
 			button.setAttribute("class", "button-play");
 			button.setAttribute("id", "button-play_" + i);
 			button.setAttribute("onclick", "play(this.id.substr(12));");
-			var button_pause = document.createElement('div');
+			var img_play = document.createElement('img');
+			img_play.setAttribute("src", "/css/play.ico");
+			img_play.setAttribute("width", "20");
+			img_play.setAttribute("height", "20");
+			button.appendChild(img_play);
+			var button_pause = document.createElement('a');
 			button_pause.setAttribute("class", "button-pause");
+			button.setAttribute("href", "javascript:;");
+			button_pause.setAttribute("title", "Pause");
 			button_pause.setAttribute("id", "button-pause_" + i);
 			button_pause.setAttribute("onclick", "pause(this.id.substr(13));");
 			button_pause.setAttribute("style", "display:none;");
-			
+			var img_stop = document.createElement('img');
+			img_stop.setAttribute("src", "/css/pause.ico");
+			img_stop.setAttribute("width", "20");
+			img_stop.setAttribute("height", "20");
+			button_pause.appendChild(img_stop);
 			item.appendChild(button);
 			item.appendChild(button_pause);
 			var itemInfo = document.createElement("div");
-			itemInfo.setAttribute("class", "item");
-			itemInfo .appendChild( document.createTextNode(the_object[i].artist + " ~ " + the_object[i].name));
+			itemInfo.setAttribute("class", "item-info item");
+			itemInfo.appendChild(document.createTextNode(the_object[i].artist + " ~ " + the_object[i].name));
 			item.appendChild(itemInfo);
-			
-			var button_download = document.createElement('div');
-			button_download.setAttribute("class", "jp-download");
+
+			var button_download = document.createElement('a');
+			button_download.setAttribute("class", "button-download");
+			button_download.setAttribute("title", "Download");
 			button_download.setAttribute("id", "button-download_" + i);
-			button_download.setAttribute("onclick", "pause(this.id.substr(13));");
-			button_download.setAttribute("style", "display:none;");
+			var img_download = document.createElement('img');
+			img_download.setAttribute("src", "/css/downloads.png");
+			img_download.setAttribute("target", "_blank");
+			img_download.setAttribute("width", "20");
+			img_download.setAttribute("height", "20");
+			button_download.appendChild(img_download);
+			button_download.setAttribute("href", "");
 			item.appendChild(button_download);
 			divGlobal.appendChild(item);
-			divGlobal.appendChild(document.createElement('br'));
+			$('#button-download_' + i).click(function() {
+			    $(this).attr("href", "http://vpleer.ru" + encode(the_object[parseInt(($(this).attr("id").substr(16)))].url));
+			});
 		    }
 		}
 	    } else {
@@ -102,6 +124,7 @@ function play(el) {
 	mp3: "http://vpleer.ru" + encode(the_object[el].url),
 	title: the_object[el].artist + " ~ " + the_object[el].name
     });
+    $("#jquery_jplayer").jPlayer("option","mp3", "http://vpleer.ru" + encode(the_object[el].url));
     $("#jquery_jplayer").jPlayer("option", "index", el);
     $("#jquery_jplayer").jPlayer("play");
 }
@@ -113,5 +136,5 @@ function encode(unencoded) {
     return unencoded.replace(/&amp;/g, '&');
 }
 $('#download_link').click(function() {
-    $(this).attr("href", $("#jquery_jplayer").jPlayer("getOption", "mp3[i]"));
+    $(this).attr("href", $("#jquery_jplayer").jPlayer("getOption", "mp3"));
 });
